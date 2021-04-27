@@ -1,6 +1,6 @@
 # Trabalhe Na Saipos 
 
-Projeto TodoList usando Nodejs e Angularjs
+Projeto TodoList usando Nodejs, Angularjs e Mysql
 
 ## Installation
 > Após baixa ou fazer clone do projeto, ir na pasta do mesmo roda o comando abaixo.
