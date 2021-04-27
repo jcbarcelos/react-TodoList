@@ -86,7 +86,7 @@ app.controller("controllerTodo", function ($scope, $http) {
     );
   };
 
-  $scope.updateStatus = function (index, x) {
+  $scope.updateStatus = function (x) {
     var txt;
     var senhaSupervisor = 'TrabalheNaSaipos';
     var senha = prompt("Senha:", "");
@@ -96,7 +96,6 @@ app.controller("controllerTodo", function ($scope, $http) {
         status: 0,
         countStatus: x.countStatus == null ? 0 + 1 : x.countStatus + 1,
       };
-      console.log($scope.form);
       var req = {
         method: "PUT",
         url: "http://localhost:3000/status/" + x.id,
@@ -115,7 +114,7 @@ app.controller("controllerTodo", function ($scope, $http) {
         }
       );
     } else {
-      alert("A senha invalida: " + senha + "senha correta: " + senhaSupervisor);
+      alert("A senha invalida: " + senha + " senha correta: " + senhaSupervisor);
       console.log(txt);
     }
   };
