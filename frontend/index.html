@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="controllerTodo as todoLista">
+  <head>
+    <base href="/" />
+    <script src="node_modules/angular/angular.js"></script>
+    <link
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="./css/todo.css" />
+
+    <script src="./js/controller/todo.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar scroll</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarScroll"
+            aria-controls="navbarScroll"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul
+              class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+              style="--bs-scroll-height: 100px"
+            >
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" ng-click="formulario()">
+                  Novo 
+                </a>
+              </li>
+            </ul>
+           
+          </div>
+        </div>
+      </nav>
+      <h2>Todo List</h2>
+         <div class="container"> <form class="d-flex">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                ng-model="test"
+              />
+            </form>
+            </div>
+            <br /><p />
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" ng-click="" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Pedentes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab"  ng-click="concluida()" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Concluidas</button>
+            </li>
+
+          </ul>
+           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-primary" ng-click="dog()" type="button">
+            Estou sem tarefas
+          </button>
+        </div>
+      <div class="tab-content" id="pills-tabContent" ng-show="showMe == false">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <div>
+            
+              <div >
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Descrição</th>
+                      <th scope="col">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="x in myData | filter : test ">
+                    <tr>
+                      <td>{{ x.nome}}</td>
+                      <td>{{ x.email }}</td>
+                      <td>{{ x.descricao }}</td>
+                      <td>
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic example"
+                        >
+                          
+                          <button
+                            type="button"
+                            ng-click="updateStatusConcluido($index)"
+                            
+                            class="btn btn-primary"
+                          >
+                            Concluir
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div ng-show="showDog">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Descrição</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="x in myDog | filter : test ">
+                    <tr>
+                      <td>Eu</td>
+                      <td>eu@me.com</td>
+                      <td>{{ x.text }}</td>
+                      
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div>
+              <div >
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Descrição</th>
+                      <th scope="col">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="x in myDataConcluido | filter : test ">
+                    <tr>
+                      <td>{{ x.nome}}</td>
+                      <td>{{ x.email }}</td>
+                      <td>{{ x.descricao }}</td>
+                      <td>
+                        <div
+                          class="btn-group"
+                          role="group"
+                          aria-label="Basic example"
+                        >
+                          <button
+                            ng-click="updateStatus($index, x)"
+                            ng-disabled="x.countStatus > 1"
+                            class="btn btn-warning"
+                          >
+                            Pedentes
+                          </button>
+                          <!-- <button
+                            type="button"
+                            ng-click="updateStatusConcluido($index)"
+                            ng-disabled="x.countStatus > 1"
+                            class="btn btn-primary"
+                          >
+                            Concluir
+                          </button> 
+                        </div>-->
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div ng-show="showDog">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Descrição</th>
+                    
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="x in myDog | filter : test ">
+                    <tr>
+                      <td>Eu</td>
+                      <td>eu@me.com</td>
+                      <td>{{ x.text }}</td>
+                      
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            </div>
+
+      </div>
+      <div ng-show="showMe">
+        <form ng-submit="todoLista.insert()" name="myForm" novalidate>
+          <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              ng-model="nome"
+              id="nome"
+              name="nome"
+              required
+              aria-describedby="emailHelp"
+            />
+            <span style="color: red" ng-show="myForm.nome.$error.required"
+              >Nome Required!</span
+            ><br />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              ng-model="email"
+              id="email"
+              required
+            />
+            <span style="color: red" ng-show="myForm.email.$error.required"
+              >Email required</span
+            ><br />
+            <span ng-if="myEmail.did_you_mean" style="color: green">Email sugerido: {{myEmail.did_you_mean}}</span><br />
+            <span ng-if="myEmail.mx_found == 'false'" style="color: red">Email mx: {{myEmail.mx_found}}</span>
+          </div>
+          <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea
+              class="form-control"
+              ng-model="descricao"
+              id="descricao"
+              rows="3"
+              name="descricao"
+              required
+            ></textarea>
+            <span style="color: red" ng-show="myForm.descricao.$error.required"
+              >Descrição Required!</span
+            ><br />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            ng-disabled="myForm.$invalid"
+          >
+            Salvar
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

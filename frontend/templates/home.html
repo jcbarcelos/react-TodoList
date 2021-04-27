@@ -1,0 +1,25 @@
+<div ng-controller="ControllerTodo as todoLista">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Descrição</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody ng-repeat="x in myData">
+      <tr>
+        <td>{{ x.nome}}</td>
+        <td>{{ x.email }}</td>
+        <td>{{ x.descricao }}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-warning">Pedentes</button>
+            <button type="button" class="btn btn-primary">Concluir</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
