@@ -51,40 +51,46 @@ app.controller("controllerTodo", function ($scope, $http) {
       },
       data: $scope.form,
     };
-
-    $http({
-      method: "GET",
-      url:
-        "https://apilayer.net/api/check?access_key=f20f7ae318c34b92ee6a685fac758feb&email=" +
-        $scope.email,
-    }).then(
+    $http(req).then(
       function successCallback(response) {
-         if (response.data.did_you_mean !== "") {
-          $scope.myEmail = response.data;
-          return $scope.myEmail;
-        } else {
-          $http(req).then(
-            function successCallback(response) {
-              $scope.reset = function () {
-                ($scope.nome = ""),
-                  ($scope.email = ""),
-                  ($scope.descricao = "");
-              };
-              $scope.reset();
-              $scope.showMe = !$scope.showMe;
-              location.reload();
-            },
-            function errorCallback(response) {
-              console.log(response);
-            }
-          );
-        }
+        $scope.reset = function () {
+          ($scope.nome = ""),
+            ($scope.email = ""),
+            ($scope.descricao = "");
+        };
+        $scope.reset();
+        $scope.showMe = !$scope.showMe;
+        location.reload();
       },
       function errorCallback(response) {
         console.log(response);
       }
     );
   };
+  $scope.validacaoEmail = function () {
+    $http({
+      method: "GET",
+      url:
+        "https://apilayer.net/api/check?access_key=66a89d3a056eb4dc7a023a7c507e8a77&email=" +
+        $scope.email,
+    }).then(
+      function successCallback(response) {
+        if (!response.data.mx_found || !response.data.format_valid) {
+          $scope.myEmail = response.data.did_you_mean;
+          $scope.mx_found = response.data.mx_found;
+          $scope.format_valid = response.data.format_valid;
+          return $scope.myEmail;
+        } else {
+          $scope.myEmail = '';
+          $scope.mx_found = response.data.mx_found;
+          $scope.format_valid = response.data.format_valid;
+        }
+      },
+      function errorCallback(response) {
+        console.log('response.data: ' + response.data);
+      }
+    );
+  }
 
   $scope.updateStatus = function (x) {
     var txt;
@@ -162,6 +168,9 @@ app.controller("controllerTodo", function ($scope, $http) {
         console.log(response);
       }
     );
+  };
+  $scope.dogConcluir = function () {
+    console.log($scope.myDog);
   };
 
   //fim
