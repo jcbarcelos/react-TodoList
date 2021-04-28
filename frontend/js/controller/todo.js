@@ -91,7 +91,6 @@ app.controller("controllerTodo", function ($scope, $http) {
       }
     );
   }
-
   $scope.updateStatus = function (x) {
     var txt;
     var senhaSupervisor = 'TrabalheNaSaipos';
@@ -124,7 +123,6 @@ app.controller("controllerTodo", function ($scope, $http) {
       console.log(txt);
     }
   };
-
   $scope.updateStatusConcluido = function (x) {
     $scope.required = true;
     $scope.form = {
@@ -152,7 +150,6 @@ app.controller("controllerTodo", function ($scope, $http) {
       }
     );
   };
-
   $scope.dog = function () {
     $http({
       method: "GET",
@@ -169,9 +166,7 @@ app.controller("controllerTodo", function ($scope, $http) {
       }
     );
   };
-  $scope.dogConcluir = function () {
-    console.log($scope.myDog);
+  $scope.dogConcluir = function (index, x) {
+    $scope.myDog = $scope.myDog.slice(1, x[index]);
   };
-
-  //fim
 });
